@@ -18,21 +18,26 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 }
 
 int main() {
-    auto print = [](vector<vector<string>> res) {
+    auto print = [](const vector<vector<string>>& v) {
         cout << "[";
-        for (size_t i = 0; i < res.size(); i++) {
+        for (size_t i = 0; i < v.size(); i++) {
             if (i) cout << ", ";
             cout << "[";
-            for (size_t j = 0; j < res[i].size(); j++) { if (j) cout << ", "; cout << res[i][j]; }
+            for (size_t j = 0; j < v[i].size(); j++) {
+                if (j) cout << ", ";
+                cout << v[i][j];
+            }
             cout << "]";
         }
         cout << "]\n";
     };
+
     vector<string> w1 = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    vector<string> w2 = {""};
-    vector<string> w3 = {"a"};
     print(groupAnagrams(w1));
+
+    vector<string> w2 = {""};
     print(groupAnagrams(w2));
+
+    vector<string> w3 = {"a"};
     print(groupAnagrams(w3));
-    return 0;
 }

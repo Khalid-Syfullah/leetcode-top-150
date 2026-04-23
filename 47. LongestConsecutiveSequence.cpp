@@ -1,16 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
+#include <algorithm>
 using namespace std;
 
 int longestConsecutive(vector<int>& nums) {
-    unordered_set<int> set(nums.begin(), nums.end());
+    unordered_set<int> s(nums.begin(), nums.end());
     int longest = 0;
-    for (int num : set) {
-        if (!set.count(num - 1)) {
-            int current = num;
-            int length = 1;
-            while (set.count(current + 1)) {
+    for (int num : s) {
+        if (!s.count(num - 1)) {
+            int current = num, length = 1;
+            while (s.count(current + 1)) {
                 current++;
                 length++;
             }
@@ -22,10 +22,11 @@ int longestConsecutive(vector<int>& nums) {
 
 int main() {
     vector<int> a = {100, 4, 200, 1, 3, 2};
-    vector<int> b = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
-    vector<int> c = {};
     cout << longestConsecutive(a) << "\n";
+
+    vector<int> b = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
     cout << longestConsecutive(b) << "\n";
+
+    vector<int> c = {};
     cout << longestConsecutive(c) << "\n";
-    return 0;
 }

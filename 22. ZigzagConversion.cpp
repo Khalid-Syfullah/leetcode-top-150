@@ -4,7 +4,7 @@
 using namespace std;
 
 string convert(string s, int numRows) {
-    if (numRows == 1 || numRows >= (int)s.size()) return s;
+    if (numRows == 1 || numRows >= (int)s.length()) return s;
     vector<string> rows(numRows);
     int cur = 0, dir = -1;
     for (char c : s) {
@@ -13,7 +13,7 @@ string convert(string s, int numRows) {
         cur += dir;
     }
     string out;
-    for (const string& r : rows) out += r;
+    for (string& r : rows) out += r;
     return out;
 }
 

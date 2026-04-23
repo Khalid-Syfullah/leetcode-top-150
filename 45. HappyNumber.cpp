@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int next(int n) {
+int nextNum(int n) {
     int sum = 0;
     while (n > 0) {
         int d = n % 10;
@@ -12,10 +12,10 @@ int next(int n) {
 }
 
 bool isHappy(int n) {
-    int slow = n, fast = next(n);
+    int slow = n, fast = nextNum(n);
     while (fast != 1 && slow != fast) {
-        slow = next(slow);
-        fast = next(next(fast));
+        slow = nextNum(slow);
+        fast = nextNum(nextNum(fast));
     }
     return fast == 1;
 }
@@ -25,5 +25,4 @@ int main() {
     cout << isHappy(19) << "\n";
     cout << isHappy(2) << "\n";
     cout << isHappy(1) << "\n";
-    return 0;
 }

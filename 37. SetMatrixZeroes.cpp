@@ -38,10 +38,13 @@ void setZeroes(vector<vector<int>>& matrix) {
     }
 }
 
-void printMatrix(vector<vector<int>>& matrix) {
-    for (auto& row : matrix) {
+void printMatrix(const vector<vector<int>>& matrix) {
+    for (const auto& row : matrix) {
         cout << "[";
-        for (size_t i = 0; i < row.size(); i++) { if (i) cout << ", "; cout << row[i]; }
+        for (size_t i = 0; i < row.size(); i++) {
+            if (i) cout << ", ";
+            cout << row[i];
+        }
         cout << "]\n";
     }
 }
@@ -54,5 +57,4 @@ int main() {
     printMatrix(m1);
     cout << "\n";
     printMatrix(m2);
-    return 0;
 }

@@ -5,9 +5,11 @@
 #include <ctime>
 using namespace std;
 
-struct RandomizedSet {
+class RandomizedSet {
     vector<int> lst;
     unordered_map<int, int> idx;
+public:
+    RandomizedSet() { srand((unsigned)time(nullptr)); }
 
     bool insert(int val) {
         if (idx.count(val)) return false;
@@ -27,7 +29,7 @@ struct RandomizedSet {
             idx[lv] = i;
         }
         lst.pop_back();
-        idx.erase(it);
+        idx.erase(val);
         return true;
     }
 
@@ -37,7 +39,6 @@ struct RandomizedSet {
 };
 
 int main() {
-    srand(42);
     cout << boolalpha;
     RandomizedSet s;
     cout << s.insert(1) << "\n";

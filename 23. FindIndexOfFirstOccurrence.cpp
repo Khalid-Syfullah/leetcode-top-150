@@ -3,7 +3,7 @@
 using namespace std;
 
 int strStr(string haystack, string needle) {
-    int n = haystack.size(), m = needle.size();
+    int n = haystack.length(), m = needle.length();
     if (m == 0) return 0;
     for (int i = 0; i + m <= n; i++) {
         if (haystack.substr(i, m) == needle) return i;

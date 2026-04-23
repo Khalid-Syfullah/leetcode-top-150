@@ -17,13 +17,11 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
 }
 
 int main() {
-    vector<int> gas1 = {1, 2, 3, 4, 5};
-    vector<int> cost1 = {3, 4, 5, 1, 2};
-    cout << canCompleteCircuit(gas1, cost1) << "\n";
+    vector<int> g1 = {1, 2, 3, 4, 5}, c1 = {3, 4, 5, 1, 2};
+    cout << canCompleteCircuit(g1, c1) << "\n";
 
-    vector<int> gas2 = {2, 3, 4};
-    vector<int> cost2 = {3, 4, 3};
-    cout << canCompleteCircuit(gas2, cost2) << "\n";
+    vector<int> g2 = {2, 3, 4}, c2 = {3, 4, 3};
+    cout << canCompleteCircuit(g2, c2) << "\n";
 
     return 0;
 }

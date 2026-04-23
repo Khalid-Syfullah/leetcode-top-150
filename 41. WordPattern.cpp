@@ -15,7 +15,7 @@ bool wordPattern(string pattern, string s) {
     unordered_map<string, char> wToC;
     for (int i = 0; i < (int)pattern.size(); i++) {
         char c = pattern[i];
-        string word = words[i];
+        string& word = words[i];
         if (cToW.count(c) && cToW[c] != word) return false;
         if (wToC.count(word) && wToC[word] != c) return false;
         cToW[c] = word;
@@ -29,5 +29,4 @@ int main() {
     cout << wordPattern("abba", "dog cat cat dog") << "\n";
     cout << wordPattern("abba", "dog cat cat fish") << "\n";
     cout << wordPattern("aaaa", "dog cat cat dog") << "\n";
-    return 0;
 }

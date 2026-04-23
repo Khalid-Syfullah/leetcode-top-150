@@ -14,16 +14,15 @@ vector<int> twoSum(vector<int>& nums, int target) {
 }
 
 int main() {
-    auto print = [](vector<int> v) {
-        cout << "[";
-        for (size_t i = 0; i < v.size(); i++) { if (i) cout << ", "; cout << v[i]; }
-        cout << "]\n";
-    };
     vector<int> a = {2, 7, 11, 15};
+    auto r1 = twoSum(a, 9);
+    cout << "[" << r1[0] << ", " << r1[1] << "]\n";
+
     vector<int> b = {3, 2, 4};
+    auto r2 = twoSum(b, 6);
+    cout << "[" << r2[0] << ", " << r2[1] << "]\n";
+
     vector<int> c = {3, 3};
-    print(twoSum(a, 9));
-    print(twoSum(b, 6));
-    print(twoSum(c, 6));
-    return 0;
+    auto r3 = twoSum(c, 6);
+    cout << "[" << r3[0] << ", " << r3[1] << "]\n";
 }

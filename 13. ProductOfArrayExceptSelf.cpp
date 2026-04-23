@@ -18,18 +18,14 @@ vector<int> productExceptSelf(vector<int>& nums) {
     return result;
 }
 
-void printVec(const vector<int>& v) {
-    cout << "[";
-    for (int i = 0; i < (int)v.size(); i++) { if (i) cout << ", "; cout << v[i]; }
-    cout << "]\n";
-}
-
 int main() {
     vector<int> a = {1, 2, 3, 4};
-    printVec(productExceptSelf(a));
+    vector<int> ra = productExceptSelf(a);
+    for (int i = 0; i < (int)ra.size(); i++) { if (i) cout << ", "; cout << ra[i]; } cout << "\n";
 
     vector<int> b = {-1, 1, 0, -3, 3};
-    printVec(productExceptSelf(b));
+    vector<int> rb = productExceptSelf(b);
+    for (int i = 0; i < (int)rb.size(); i++) { if (i) cout << ", "; cout << rb[i]; } cout << "\n";
 
     return 0;
 }

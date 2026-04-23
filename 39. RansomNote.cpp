@@ -16,5 +16,4 @@ int main() {
     cout << canConstruct("a", "b") << "\n";
     cout << canConstruct("aa", "ab") << "\n";
     cout << canConstruct("aa", "aab") << "\n";
-    return 0;
 }

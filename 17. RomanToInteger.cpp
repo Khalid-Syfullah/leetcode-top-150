@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-int value(char c) {
+int charValue(char c) {
     switch (c) {
         case 'I': return 1;
         case 'V': return 5;
@@ -17,8 +17,8 @@ int value(char c) {
 
 int romanToInt(string s) {
     int total = 0, prev = 0;
-    for (int i = s.size() - 1; i >= 0; i--) {
-        int v = value(s[i]);
+    for (int i = s.length() - 1; i >= 0; i--) {
+        int v = charValue(s[i]);
         total += v < prev ? -v : v;
         prev = v;
     }

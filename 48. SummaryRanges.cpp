@@ -17,16 +17,21 @@ vector<string> summaryRanges(vector<int>& nums) {
 }
 
 int main() {
-    auto print = [](vector<string> v) {
+    auto print = [](const vector<string>& v) {
         cout << "[";
-        for (size_t i = 0; i < v.size(); i++) { if (i) cout << ", "; cout << v[i]; }
+        for (size_t i = 0; i < v.size(); i++) {
+            if (i) cout << ", ";
+            cout << v[i];
+        }
         cout << "]\n";
     };
+
     vector<int> a = {0, 1, 2, 4, 5, 7};
-    vector<int> b = {0, 2, 3, 4, 6, 8, 9};
-    vector<int> c = {};
     print(summaryRanges(a));
+
+    vector<int> b = {0, 2, 3, 4, 6, 8, 9};
     print(summaryRanges(b));
+
+    vector<int> c = {};
     print(summaryRanges(c));
-    return 0;
 }

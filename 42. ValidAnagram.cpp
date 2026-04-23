@@ -17,5 +17,4 @@ int main() {
     cout << boolalpha;
     cout << isAnagram("anagram", "nagaram") << "\n";
     cout << isAnagram("rat", "car") << "\n";
-    return 0;
 }

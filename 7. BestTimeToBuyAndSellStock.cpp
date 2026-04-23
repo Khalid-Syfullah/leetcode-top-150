@@ -4,10 +4,10 @@
 using namespace std;
 
 int maxProfit(vector<int>& prices) {
-    int mn = INT_MAX, best = 0;
+    int minVal = INT_MAX, best = 0;
     for (int p : prices) {
-        if (p < mn) mn = p;
-        else if (p - mn > best) best = p - mn;
+        if (p < minVal) minVal = p;
+        else if (p - minVal > best) best = p - minVal;
     }
     return best;
 }

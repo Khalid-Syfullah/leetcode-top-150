@@ -8,8 +8,8 @@ vector<string> fullJustify(vector<string>& words, int maxWidth) {
     int i = 0, n = words.size();
     while (i < n) {
         int j = i, len = 0;
-        while (j < n && len + (int)words[j].size() + (j - i) <= maxWidth) {
-            len += words[j++].size();
+        while (j < n && len + (int)words[j].length() + (j - i) <= maxWidth) {
+            len += words[j++].length();
         }
         string line;
         int gaps = j - i - 1;
@@ -18,7 +18,7 @@ vector<string> fullJustify(vector<string>& words, int maxWidth) {
                 line += words[k];
                 if (k < j - 1) line += ' ';
             }
-            while ((int)line.size() < maxWidth) line += ' ';
+            while ((int)line.length() < maxWidth) line += ' ';
         } else {
             int spaces = (maxWidth - len) / gaps;
             int extra = (maxWidth - len) % gaps;
@@ -37,15 +37,17 @@ vector<string> fullJustify(vector<string>& words, int maxWidth) {
 }
 
 int main() {
-    vector<string> words1 = {"This", "is", "an", "example", "of", "text", "justification."};
-    vector<string> res1 = fullJustify(words1, 16);
-    for (const string& line : res1) cout << line << "\n";
+    vector<string> w1 = {"This", "is", "an", "example", "of", "text", "justification."};
+    vector<string> r1 = fullJustify(w1, 16);
+    cout << "[";
+    for (int i = 0; i < (int)r1.size(); i++) { if (i) cout << ", "; cout << "\"" << r1[i] << "\""; }
+    cout << "]\n";
 
-    cout << "\n";
-
-    vector<string> words2 = {"What", "must", "be", "acknowledgment", "shall", "be"};
-    vector<string> res2 = fullJustify(words2, 16);
-    for (const string& line : res2) cout << line << "\n";
+    vector<string> w2 = {"What", "must", "be", "acknowledgment", "shall", "be"};
+    vector<string> r2 = fullJustify(w2, 16);
+    cout << "[";
+    for (int i = 0; i < (int)r2.size(); i++) { if (i) cout << ", "; cout << "\"" << r2[i] << "\""; }
+    cout << "]\n";
 
     return 0;
 }

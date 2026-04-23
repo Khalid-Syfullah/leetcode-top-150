@@ -16,10 +16,11 @@ bool containsNearbyDuplicate(vector<int>& nums, int k) {
 int main() {
     cout << boolalpha;
     vector<int> a = {1, 2, 3, 1};
-    vector<int> b = {1, 0, 1, 1};
-    vector<int> c = {1, 2, 3, 1, 2, 3};
     cout << containsNearbyDuplicate(a, 3) << "\n";
+
+    vector<int> b = {1, 0, 1, 1};
     cout << containsNearbyDuplicate(b, 1) << "\n";
+
+    vector<int> c = {1, 2, 3, 1, 2, 3};
     cout << containsNearbyDuplicate(c, 2) << "\n";
-    return 0;
 }

@@ -17,5 +17,4 @@ int main() {
     cout << isIsomorphic("egg", "add") << "\n";
     cout << isIsomorphic("foo", "bar") << "\n";
     cout << isIsomorphic("paper", "title") << "\n";
-    return 0;
 }
