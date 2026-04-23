@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode *newNode(int val) {
+    struct TreeNode *node = malloc(sizeof(*node));
+    node->val = val;
+    node->left = node->right = NULL;
+    return node;
+}
+
+int maxDepth(struct TreeNode *root) {
+    if (!root) return 0;
+    int left = maxDepth(root->left);
+    int right = maxDepth(root->right);
+    return (left > right ? left : right) + 1;
+}
+
+int main(void) {
+    struct TreeNode *root = newNode(3);
+    root->left = newNode(9);
+    root->right = newNode(20);
+    root->right->left = newNode(15);
+    root->right->right = newNode(7);
+    printf("%d\n", maxDepth(root));
+    return 0;
+}
