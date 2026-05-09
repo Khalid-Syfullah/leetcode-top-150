@@ -4,18 +4,20 @@
 #include <string.h>
 
 bool isPalindrome(const char *s) {
-    int i = 0, j = (int)strlen(s) - 1;
-    while (i < j) {
-        while (i < j && !isalnum((unsigned char)s[i])) ++i;
-        while (i < j && !isalnum((unsigned char)s[j])) --j;
-        if (tolower((unsigned char)s[i]) != tolower((unsigned char)s[j])) return false;
-        ++i;
-        --j;
+    int l = 0, r = (int)strlen(s) - 1;
+    while (l < r) {
+        while (l < r && !isalnum((unsigned char)s[l])) l++;
+        while (l < r && !isalnum((unsigned char)s[r])) r--;
+        if (tolower((unsigned char)s[l]) != tolower((unsigned char)s[r])) return false;
+        l++; r--;
     }
     return true;
 }
 
 int main(void) {
-    puts(isPalindrome("A man, a plan, a canal: Panama") ? "true" : "false");
+    printf("%s\n", isPalindrome("A man, a plan, a canal: Panama") ? "true" : "false"); /* true */
+    printf("%s\n", isPalindrome("race a car") ? "true" : "false");                     /* false */
+    printf("%s\n", isPalindrome(" ") ? "true" : "false");                              /* true */
+
     return 0;
 }

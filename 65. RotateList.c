@@ -14,29 +14,61 @@ struct ListNode *newNode(int val) {
 }
 
 struct ListNode *rotateRight(struct ListNode *head, int k) {
-    if (!head || !head->next || k == 0) return head;
-    int len = 1;
+    if (head == NULL || head->next == NULL || k == 0) return head;
+
+    int length = 1;
     struct ListNode *tail = head;
-    while (tail->next) {
+    while (tail->next != NULL) {
         tail = tail->next;
-        ++len;
+        length++;
     }
-    k %= len;
+
+    k %= length;
     if (k == 0) return head;
+
     tail->next = head;
-    for (int i = 0; i < len - k; ++i) tail = tail->next;
-    struct ListNode *newHead = tail->next;
-    tail->next = NULL;
+
+    int stepsToNewTail = length - k - 1;
+    struct ListNode *newTail = head;
+    for (int i = 0; i < stepsToNewTail; i++) {
+        newTail = newTail->next;
+    }
+
+    struct ListNode *newHead = newTail->next;
+    newTail->next = NULL;
+
     return newHead;
 }
 
+static struct ListNode *build(int *values, int n) {
+    struct ListNode dummy;
+    dummy.next = NULL;
+    struct ListNode *cur = &dummy;
+    for (int i = 0; i < n; i++) {
+        cur->next = newNode(values[i]);
+        cur = cur->next;
+    }
+    return dummy.next;
+}
+
+static void printList(struct ListNode *head) {
+    struct ListNode *cur = head;
+    while (cur != NULL) {
+        printf("%d", cur->val);
+        if (cur->next != NULL) printf(" -> ");
+        cur = cur->next;
+    }
+    printf("\n");
+}
+
 int main(void) {
-    struct ListNode *head = newNode(1);
-    head->next = newNode(2);
-    head->next->next = newNode(3);
-    head->next->next->next = newNode(4);
-    head->next->next->next->next = newNode(5);
-    for (struct ListNode *p = rotateRight(head, 2); p; p = p->next) printf("%d ", p->val);
-    puts("");
+    int v1[] = {1, 2, 3, 4, 5};
+    struct ListNode *a = build(v1, 5);
+    printList(rotateRight(a, 2));
+
+    int v2[] = {0, 1, 2};
+    struct ListNode *b = build(v2, 3);
+    printList(rotateRight(b, 4));
+
     return 0;
 }

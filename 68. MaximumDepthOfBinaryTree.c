@@ -10,12 +10,13 @@ struct TreeNode {
 struct TreeNode *newNode(int val) {
     struct TreeNode *node = malloc(sizeof(*node));
     node->val = val;
-    node->left = node->right = NULL;
+    node->left = NULL;
+    node->right = NULL;
     return node;
 }
 
 int maxDepth(struct TreeNode *root) {
-    if (!root) return 0;
+    if (root == NULL) return 0;
     int left = maxDepth(root->left);
     int right = maxDepth(root->right);
     return (left > right ? left : right) + 1;
@@ -27,6 +28,7 @@ int main(void) {
     root->right = newNode(20);
     root->right->left = newNode(15);
     root->right->right = newNode(7);
-    printf("%d\n", maxDepth(root));
+    printf("%d\n", maxDepth(root)); /* 3 */
+    printf("%d\n", maxDepth(NULL)); /* 0 */
     return 0;
 }

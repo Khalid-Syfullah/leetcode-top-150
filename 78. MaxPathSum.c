@@ -32,12 +32,34 @@ int maxPathSum(struct TreeNode *root) {
     return best;
 }
 
+void freeTree(struct TreeNode *root) {
+    if (!root) return;
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
+}
+
 int main(void) {
-    struct TreeNode *root = newNode(-10);
-    root->left = newNode(9);
-    root->right = newNode(20);
-    root->right->left = newNode(15);
-    root->right->right = newNode(7);
-    printf("%d\n", maxPathSum(root));
+    // Test 1: [-10, 9, 20, null, null, 15, 7] => expected 42
+    struct TreeNode *root1 = newNode(-10);
+    root1->left  = newNode(9);
+    root1->right = newNode(20);
+    root1->right->left  = newNode(15);
+    root1->right->right = newNode(7);
+    printf("Test 1: %d\n", maxPathSum(root1)); // 42
+    freeTree(root1);
+
+    // Test 2: [1, 2, 3] => expected 6
+    struct TreeNode *root2 = newNode(1);
+    root2->left  = newNode(2);
+    root2->right = newNode(3);
+    printf("Test 2: %d\n", maxPathSum(root2)); // 6
+    freeTree(root2);
+
+    // Test 3: [-3] => expected -3
+    struct TreeNode *root3 = newNode(-3);
+    printf("Test 3: %d\n", maxPathSum(root3)); // -3
+    freeTree(root3);
+
     return 0;
 }

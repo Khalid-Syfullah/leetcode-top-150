@@ -1,35 +1,37 @@
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
+
+char result[100000];
 
 char *minWindow(const char *s, const char *t) {
-    static char out[2048];
-    int need[128] = {0}, missing = (int)strlen(t);
-    for (int i = 0; t[i]; ++i) ++need[(unsigned char)t[i]];
-    int bestStart = 0, bestLen = 1 << 30, left = 0;
-    for (int right = 0; s[right]; ++right) {
-        if (need[(unsigned char)s[right]] > 0) --missing;
-        --need[(unsigned char)s[right]];
+    int slen = (int)strlen(s);
+    int tlen = (int)strlen(t);
+    if (slen < tlen) { result[0] = '\0'; return result; }
+
+    int need[128] = {0};
+    for (int i = 0; i < tlen; i++) need[(unsigned char)t[i]]++;
+    int missing = tlen, l = 0, start = 0, minLen = INT_MAX;
+
+    for (int r = 0; r < slen; r++) {
+        if (need[(unsigned char)s[r]]-- > 0) missing--;
         while (missing == 0) {
-            int len = right - left + 1;
-            if (len < bestLen) {
-                bestLen = len;
-                bestStart = left;
+            if (r - l + 1 < minLen) {
+                minLen = r - l + 1;
+                start = l;
             }
-            ++need[(unsigned char)s[left]];
-            if (need[(unsigned char)s[left]] > 0) ++missing;
-            ++left;
+            if (need[(unsigned char)s[l++]]++ == 0) missing++;
         }
     }
-    if (bestLen == (1 << 30)) {
-        out[0] = '\0';
-        return out;
-    }
-    memcpy(out, s + bestStart, (size_t)bestLen);
-    out[bestLen] = '\0';
-    return out;
+    if (minLen == INT_MAX) { result[0] = '\0'; return result; }
+    memcpy(result, s + start, (size_t)minLen);
+    result[minLen] = '\0';
+    return result;
 }
 
 int main(void) {
-    puts(minWindow("ADOBECODEBANC", "ABC"));
+    printf("%s\n", minWindow("ADOBECODEBANC", "ABC")); // BANC
+    printf("%s\n", minWindow("a", "a"));               // a
+    printf("%s\n", minWindow("a", "aa"));              // (empty)
     return 0;
 }

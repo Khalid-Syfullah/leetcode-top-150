@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 static int value(char c) {
     switch (c) {
@@ -13,17 +14,22 @@ static int value(char c) {
     }
 }
 
+/* Matches Java: iterate right-to-left, subtract when v < prev */
 int romanToInt(const char *s) {
-    int total = 0;
-    for (int i = 0; s[i]; ++i) {
-        int curr = value(s[i]);
-        int next = value(s[i + 1]);
-        total += (curr < next) ? -curr : curr;
+    int total = 0, prev = 0;
+    int len = (int)strlen(s);
+    for (int i = len - 1; i >= 0; i--) {
+        int v = value(s[i]);
+        total += v < prev ? -v : v;
+        prev = v;
     }
     return total;
 }
 
 int main(void) {
-    printf("%d\n", romanToInt("MCMXCIV"));
+    printf("%d\n", romanToInt("III"));     /* 3 */
+    printf("%d\n", romanToInt("LVIII"));   /* 58 */
+    printf("%d\n", romanToInt("MCMXCIV")); /* 1994 */
+
     return 0;
 }

@@ -11,13 +11,17 @@ struct TreeNode {
 struct TreeNode *newNode(int val) {
     struct TreeNode *node = malloc(sizeof(*node));
     node->val = val;
-    node->left = node->right = NULL;
+    node->left = NULL;
+    node->right = NULL;
     return node;
 }
 
 bool isSameTree(struct TreeNode *p, struct TreeNode *q) {
-    if (!p || !q) return p == q;
-    return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    if (p == NULL && q == NULL) return true;
+    if (p == NULL || q == NULL) return false;
+    return p->val == q->val &&
+           isSameTree(p->left, q->left) &&
+           isSameTree(p->right, q->right);
 }
 
 int main(void) {
@@ -27,6 +31,13 @@ int main(void) {
     struct TreeNode *b = newNode(1);
     b->left = newNode(2);
     b->right = newNode(3);
-    puts(isSameTree(a, b) ? "true" : "false");
+    printf("%s\n", isSameTree(a, b) ? "true" : "false"); /* true */
+
+    struct TreeNode *c = newNode(1);
+    c->left = newNode(2);
+    struct TreeNode *d = newNode(1);
+    d->right = newNode(2);
+    printf("%s\n", isSameTree(c, d) ? "true" : "false"); /* false */
+
     return 0;
 }

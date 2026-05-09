@@ -48,9 +48,14 @@ int main(void) {
     root->right = newNode(15);
     root->right->left = newNode(9);
     root->right->right = newNode(20);
+
     BSTIterator it;
     bSTIteratorInit(&it, root);
-    while (bSTIteratorHasNext(&it)) printf("%d ", bSTIteratorNext(&it));
+
+    while (bSTIteratorHasNext(&it)) {
+        printf("%d ", bSTIteratorNext(&it));
+    }
     puts("");
+    puts(bSTIteratorHasNext(&it) ? "true" : "false");
     return 0;
 }

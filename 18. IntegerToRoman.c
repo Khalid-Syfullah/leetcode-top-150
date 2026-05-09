@@ -1,22 +1,32 @@
 #include <stdio.h>
+#include <string.h>
 
-char *intToRoman(int num, char *out) {
-    static const int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    static const char *symbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+static const int VALS[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+static const char *SYMS[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+void intToRoman(int num, char *out) {
     int k = 0;
-    for (int i = 0; i < 13; ++i) {
-        while (num >= values[i]) {
-            const char *s = symbols[i];
+    for (int i = 0; i < 13; i++) {
+        while (num >= VALS[i]) {
+            const char *s = SYMS[i];
             while (*s) out[k++] = *s++;
-            num -= values[i];
+            num -= VALS[i];
         }
     }
     out[k] = '\0';
-    return out;
 }
 
 int main(void) {
     char out[32];
-    puts(intToRoman(1994, out));
+
+    intToRoman(3, out);
+    printf("%s\n", out);    /* III */
+
+    intToRoman(58, out);
+    printf("%s\n", out);    /* LVIII */
+
+    intToRoman(1994, out);
+    printf("%s\n", out);    /* MCMXCIV */
+
     return 0;
 }

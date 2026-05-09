@@ -32,6 +32,9 @@ int main(void) {
     root->right->left = newNode(13);
     root->right->right = newNode(4);
     root->right->right->right = newNode(1);
+
     puts(hasPathSum(root, 22) ? "true" : "false");
+    puts(hasPathSum(root, 26) ? "true" : "false");
+    puts(hasPathSum(root, 18) ? "true" : "false");
     return 0;
 }

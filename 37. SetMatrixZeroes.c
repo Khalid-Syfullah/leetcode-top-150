@@ -1,30 +1,65 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void setZeroes(int matrix[3][3], int rows, int cols) {
-    bool firstRow = false, firstCol = false;
-    for (int c = 0; c < cols; ++c) if (matrix[0][c] == 0) firstRow = true;
-    for (int r = 0; r < rows; ++r) if (matrix[r][0] == 0) firstCol = true;
-    for (int r = 1; r < rows; ++r) {
-        for (int c = 1; c < cols; ++c) {
-            if (matrix[r][c] == 0) matrix[r][0] = matrix[0][c] = 0;
+void setZeroes(int *matrix, int rows, int cols) {
+    bool firstRowZero = false, firstColZero = false;
+
+    for (int c = 0; c < cols; c++)
+        if (matrix[c] == 0) { firstRowZero = true; break; }
+
+    for (int r = 0; r < rows; r++)
+        if (matrix[r * cols] == 0) { firstColZero = true; break; }
+
+    for (int r = 1; r < rows; r++)
+        for (int c = 1; c < cols; c++)
+            if (matrix[r * cols + c] == 0) {
+                matrix[r * cols] = 0;
+                matrix[c] = 0;
+            }
+
+    for (int r = 1; r < rows; r++)
+        if (matrix[r * cols] == 0)
+            for (int c = 1; c < cols; c++) matrix[r * cols + c] = 0;
+
+    for (int c = 1; c < cols; c++)
+        if (matrix[c] == 0)
+            for (int r = 1; r < rows; r++) matrix[r * cols + c] = 0;
+
+    if (firstRowZero)
+        for (int c = 0; c < cols; c++) matrix[c] = 0;
+
+    if (firstColZero)
+        for (int r = 0; r < rows; r++) matrix[r * cols] = 0;
+}
+
+static void printMatrix(int *matrix, int rows, int cols) {
+    for (int r = 0; r < rows; r++) {
+        printf("[");
+        for (int c = 0; c < cols; c++) {
+            if (c) printf(", ");
+            printf("%d", matrix[r * cols + c]);
         }
+        printf("]\n");
     }
-    for (int r = 1; r < rows; ++r) {
-        for (int c = 1; c < cols; ++c) {
-            if (matrix[r][0] == 0 || matrix[0][c] == 0) matrix[r][c] = 0;
-        }
-    }
-    if (firstRow) for (int c = 0; c < cols; ++c) matrix[0][c] = 0;
-    if (firstCol) for (int r = 0; r < rows; ++r) matrix[r][0] = 0;
 }
 
 int main(void) {
-    int matrix[3][3] = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
-    setZeroes(matrix, 3, 3);
-    for (int r = 0; r < 3; ++r) {
-        for (int c = 0; c < 3; ++c) printf("%d ", matrix[r][c]);
-        puts("");
-    }
+    int m1[3][3] = {
+        {1, 1, 1},
+        {1, 0, 1},
+        {1, 1, 1}
+    };
+    setZeroes(&m1[0][0], 3, 3);
+    printMatrix(&m1[0][0], 3, 3);
+    printf("\n");
+
+    int m2[3][4] = {
+        {0, 1, 2, 0},
+        {3, 4, 5, 2},
+        {1, 3, 1, 5}
+    };
+    setZeroes(&m2[0][0], 3, 4);
+    printMatrix(&m2[0][0], 3, 4);
+
     return 0;
 }

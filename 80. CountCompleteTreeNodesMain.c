@@ -16,19 +16,13 @@ struct TreeNode *newNode(int val) {
 
 static int leftHeight(struct TreeNode *node) {
     int h = 0;
-    while (node) {
-        ++h;
-        node = node->left;
-    }
+    while (node) { ++h; node = node->left; }
     return h;
 }
 
 static int rightHeight(struct TreeNode *node) {
     int h = 0;
-    while (node) {
-        ++h;
-        node = node->right;
-    }
+    while (node) { ++h; node = node->right; }
     return h;
 }
 
@@ -40,12 +34,14 @@ int countNodes(struct TreeNode *root) {
 }
 
 int main(void) {
+    // Complete tree: [1,2,3,4,5,6]
     struct TreeNode *root = newNode(1);
     root->left = newNode(2);
     root->right = newNode(3);
     root->left->left = newNode(4);
     root->left->right = newNode(5);
     root->right->left = newNode(6);
+
     printf("%d\n", countNodes(root));
     return 0;
 }

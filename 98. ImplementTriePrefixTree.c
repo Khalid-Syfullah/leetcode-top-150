@@ -40,9 +40,12 @@ bool trieStartsWith(Trie *root, const char *prefix) {
 
 int main(void) {
     Trie *trie = trieCreate();
+
     trieInsert(trie, "apple");
-    puts(trieSearch(trie, "apple") ? "true" : "false");
-    puts(trieSearch(trie, "app") ? "true" : "false");
-    puts(trieStartsWith(trie, "app") ? "true" : "false");
+    puts(trieSearch(trie, "apple")   ? "true" : "false");  // true
+    puts(trieSearch(trie, "app")     ? "true" : "false");  // false
+    puts(trieStartsWith(trie, "app") ? "true" : "false");  // true
+    trieInsert(trie, "app");
+    puts(trieSearch(trie, "app")     ? "true" : "false");  // true
     return 0;
 }

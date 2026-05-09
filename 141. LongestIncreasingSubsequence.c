@@ -1,22 +1,37 @@
 #include <stdio.h>
 
 int lengthOfLIS(int *nums, int n) {
-    int tails[2500], size = 0;
-    for (int i = 0; i < n; ++i) {
-        int l = 0, r = size;
-        while (l < r) {
-            int m = l + (r - l) / 2;
-            if (tails[m] < nums[i]) l = m + 1;
-            else r = m;
+    if (n == 0) return 0;
+
+    int dp[2501];
+    for (int i = 0; i < n; i++) dp[i] = 1;
+    int maxLen = 1;
+
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                int candidate = dp[j] + 1;
+                if (candidate > dp[i]) dp[i] = candidate;
+            }
         }
-        tails[l] = nums[i];
-        if (l == size) ++size;
+        if (dp[i] > maxLen) maxLen = dp[i];
     }
-    return size;
+
+    return maxLen;
 }
 
 int main(void) {
-    int nums[] = {10, 9, 2, 5, 3, 7, 101, 18};
-    printf("%d\n", lengthOfLIS(nums, 8));
+    int a[] = {10, 9, 2, 5, 3, 7, 101, 18};
+    printf("%d\n", lengthOfLIS(a, 8)); /* 4 */
+
+    int b[] = {0, 1, 0, 3, 2, 3};
+    printf("%d\n", lengthOfLIS(b, 6)); /* 4 */
+
+    int c[] = {7, 7, 7, 7, 7, 7, 7};
+    printf("%d\n", lengthOfLIS(c, 7)); /* 1 */
+
+    int d[] = {1};
+    printf("%d\n", lengthOfLIS(d, 1)); /* 1 */
+
     return 0;
 }

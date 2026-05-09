@@ -1,23 +1,29 @@
 #include <stdio.h>
 
 void twoSum(int *numbers, int n, int target, int *a, int *b) {
-    int left = 0, right = n - 1;
-    while (left < right) {
-        int sum = numbers[left] + numbers[right];
-        if (sum == target) {
-            *a = left + 1;
-            *b = right + 1;
-            return;
-        }
-        if (sum < target) ++left;
-        else --right;
+    int l = 0, r = n - 1;
+    while (l < r) {
+        int sum = numbers[l] + numbers[r];
+        if (sum == target) { *a = l + 1; *b = r + 1; return; }
+        if (sum < target) l++; else r--;
     }
     *a = *b = -1;
 }
 
 int main(void) {
-    int numbers[] = {2, 7, 11, 15}, a, b;
-    twoSum(numbers, 4, 9, &a, &b);
-    printf("[%d, %d]\n", a, b);
+    int res_a, res_b;
+
+    int a[] = {2, 7, 11, 15};
+    twoSum(a, 4, 9, &res_a, &res_b);
+    printf("[%d, %d]\n", res_a, res_b); // [1, 2]
+
+    int b[] = {2, 3, 4};
+    twoSum(b, 3, 6, &res_a, &res_b);
+    printf("[%d, %d]\n", res_a, res_b); // [1, 3]
+
+    int c[] = {-1, 0};
+    twoSum(c, 2, -1, &res_a, &res_b);
+    printf("[%d, %d]\n", res_a, res_b); // [1, 2]
+
     return 0;
 }

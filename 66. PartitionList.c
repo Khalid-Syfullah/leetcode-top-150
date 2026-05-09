@@ -14,31 +14,59 @@ struct ListNode *newNode(int val) {
 }
 
 struct ListNode *partition(struct ListNode *head, int x) {
-    struct ListNode lessDummy = {0, NULL}, geDummy = {0, NULL};
-    struct ListNode *less = &lessDummy, *ge = &geDummy;
-    while (head) {
-        if (head->val < x) {
-            less->next = head;
-            less = less->next;
+    struct ListNode lessDummy, greaterDummy;
+    lessDummy.next = NULL;
+    greaterDummy.next = NULL;
+    struct ListNode *lessTail = &lessDummy;
+    struct ListNode *greaterTail = &greaterDummy;
+
+    struct ListNode *curr = head;
+    while (curr != NULL) {
+        if (curr->val < x) {
+            lessTail->next = curr;
+            lessTail = lessTail->next;
         } else {
-            ge->next = head;
-            ge = ge->next;
+            greaterTail->next = curr;
+            greaterTail = greaterTail->next;
         }
-        head = head->next;
+        curr = curr->next;
     }
-    ge->next = NULL;
-    less->next = geDummy.next;
+
+    greaterTail->next = NULL;
+    lessTail->next = greaterDummy.next;
+
     return lessDummy.next;
 }
 
+static struct ListNode *build(int *values, int n) {
+    struct ListNode dummy;
+    dummy.next = NULL;
+    struct ListNode *tail = &dummy;
+    for (int i = 0; i < n; i++) {
+        tail->next = newNode(values[i]);
+        tail = tail->next;
+    }
+    return dummy.next;
+}
+
+static void printList(struct ListNode *head) {
+    struct ListNode *curr = head;
+    while (curr != NULL) {
+        printf("%d", curr->val);
+        if (curr->next != NULL) printf(" -> ");
+        curr = curr->next;
+    }
+    printf("\n");
+}
+
 int main(void) {
-    struct ListNode *head = newNode(1);
-    head->next = newNode(4);
-    head->next->next = newNode(3);
-    head->next->next->next = newNode(2);
-    head->next->next->next->next = newNode(5);
-    head->next->next->next->next->next = newNode(2);
-    for (struct ListNode *p = partition(head, 3); p; p = p->next) printf("%d ", p->val);
-    puts("");
+    int v1[] = {1, 4, 3, 2, 5, 2};
+    struct ListNode *a = build(v1, 6);
+    printList(partition(a, 3));
+
+    int v2[] = {2, 1};
+    struct ListNode *b = build(v2, 2);
+    printList(partition(b, 2));
+
     return 0;
 }
