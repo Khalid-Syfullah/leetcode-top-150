@@ -26,12 +26,14 @@ int sumNumbers(struct TreeNode *root) {
 }
 
 int main(void) {
-    //       4
-    //      / \
-    //     9   0
-    //    / \
-    //   5   1
-    // Paths: 495 + 491 + 40 = 1026
+    /* Tree:
+     *       4
+     *      / \
+     *     9   0
+     *    / \
+     *   5   1
+     * Paths: 495 + 491 + 40 = 1026
+     */
     struct TreeNode *root = newNode(4);
     root->left = newNode(9);
     root->right = newNode(0);
