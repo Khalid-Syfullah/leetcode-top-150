@@ -7,13 +7,11 @@
 
 typedef struct TrieNode {
     struct TrieNode *children[26];
-    char word[MAX_WORD_LEN + 1];  /* non-empty when this node is end of a word */
+    char word[MAX_WORD_LEN + 1];  /* non-empty string = end of that word */
 } TrieNode;
 
 static TrieNode *newTrieNode(void) {
-    TrieNode *node = (TrieNode *)calloc(1, sizeof(TrieNode));
-    node->word[0] = '\0';
-    return node;
+    return (TrieNode *)calloc(1, sizeof(TrieNode));
 }
 
 static TrieNode *buildTrie(const char words[][MAX_WORD_LEN + 1], int numWords) {
@@ -26,25 +24,26 @@ static TrieNode *buildTrie(const char words[][MAX_WORD_LEN + 1], int numWords) {
             node = node->children[idx];
         }
         strncpy(node->word, words[i], MAX_WORD_LEN);
-        node->word[MAX_WORD_LEN] = '\0';
     }
     return root;
 }
 
-static char *results[MAX_WORDS];
-static int   resultCount;
+/* Results stored as copies so clearing node->word doesn't lose the string */
+static char results[MAX_WORDS][MAX_WORD_LEN + 1];
+static int  resultCount;
 
 static void dfs(char board[][4], int rows, int cols, int r, int c, TrieNode *node) {
     if (r < 0 || c < 0 || r >= rows || c >= cols) return;
     char ch = board[r][c];
     if (ch == '#') return;
 
-    TrieNode *next = node->children[ch - 'a'];
+    int idx = ch - 'a';
+    TrieNode *next = node->children[idx];
     if (!next) return;
 
     if (next->word[0] != '\0') {
-        results[resultCount++] = next->word;
-        next->word[0] = '\0';  /* avoid duplicates */
+        strncpy(results[resultCount++], next->word, MAX_WORD_LEN);
+        next->word[0] = '\0';  /* mark as found to avoid duplicates */
     }
 
     board[r][c] = '#';

@@ -51,7 +51,6 @@ int main(void) {
     printf("%d\n", snakesAndLadders(board1, 6)); // 4
 
     /* Second test: 2x2 board {{-1,-1},{-1,3}} */
-    int board2[2][6] = {{-1, -1}, {-1, 3}};
     /* Need a separate function or workaround for different n.
        We'll inline the logic for n=2. */
     {
