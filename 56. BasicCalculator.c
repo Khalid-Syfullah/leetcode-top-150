@@ -2,35 +2,40 @@
 #include <stdio.h>
 
 int calculate(const char *s) {
-    int ans = 0, num = 0, sign = 1;
-    int stack[1024], top = 0;
-    for (int i = 0; s[i]; ++i) {
-        if (isdigit((unsigned char)s[i])) {
-            num = num * 10 + (s[i] - '0');
-        } else if (s[i] == '+') {
-            ans += sign * num;
+    int result = 0, num = 0, sign = 1;
+    int stack[1024];
+    int top = 0;
+
+    for (int i = 0; s[i]; i++) {
+        char c = s[i];
+        if (isdigit((unsigned char)c)) {
+            num = num * 10 + (c - '0');
+        } else if (c == '+') {
+            result += sign * num;
             num = 0;
             sign = 1;
-        } else if (s[i] == '-') {
-            ans += sign * num;
+        } else if (c == '-') {
+            result += sign * num;
             num = 0;
             sign = -1;
-        } else if (s[i] == '(') {
-            stack[top++] = ans;
+        } else if (c == '(') {
+            stack[top++] = result;
             stack[top++] = sign;
-            ans = 0;
+            result = 0;
             sign = 1;
-        } else if (s[i] == ')') {
-            ans += sign * num;
+        } else if (c == ')') {
+            result += sign * num;
             num = 0;
-            ans *= stack[--top];
-            ans += stack[--top];
+            result *= stack[--top];
+            result += stack[--top];
         }
     }
-    return ans + sign * num;
+    return result + sign * num;
 }
 
 int main(void) {
-    printf("%d\n", calculate("(1+(4+5+2)-3)+(6+8)"));
+    printf("%d\n", calculate("1 + 1"));                /* 2 */
+    printf("%d\n", calculate(" 2-1 + 2 "));            /* 3 */
+    printf("%d\n", calculate("(1+(4+5+2)-3)+(6+8)")); /* 23 */
     return 0;
 }

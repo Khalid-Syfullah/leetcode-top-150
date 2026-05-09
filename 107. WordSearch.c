@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static bool dfs(char **board, int rows, int cols, int r, int c, const char *word, int idx) {
+static bool dfs(char board[][4], int rows, int cols, int r, int c, const char *word, int idx) {
     if (!word[idx]) return true;
     if (r < 0 || c < 0 || r >= rows || c >= cols || board[r][c] != word[idx]) return false;
     char saved = board[r][c];
@@ -15,9 +15,9 @@ static bool dfs(char **board, int rows, int cols, int r, int c, const char *word
     return ok;
 }
 
-bool exist(char **board, int rows, int cols, const char *word) {
-    for (int r = 0; r < rows; ++r) {
-        for (int c = 0; c < cols; ++c) {
+static bool exist(char board[][4], int rows, int cols, const char *word) {
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
             if (dfs(board, rows, cols, r, c, word, 0)) return true;
         }
     }
@@ -25,8 +25,13 @@ bool exist(char **board, int rows, int cols, const char *word) {
 }
 
 int main(void) {
-    char r0[] = "ABCE", r1[] = "SFCS", r2[] = "ADEE";
-    char *board[] = {r0, r1, r2};
-    puts(exist(board, 3, 4, "ABCCED") ? "true" : "false");
+    char board[3][4] = {
+        {'A', 'B', 'C', 'E'},
+        {'S', 'F', 'C', 'S'},
+        {'A', 'D', 'E', 'E'}
+    };
+    printf("%s\n", exist(board, 3, 4, "ABCCED") ? "true" : "false");
+    printf("%s\n", exist(board, 3, 4, "SEE") ? "true" : "false");
+    printf("%s\n", exist(board, 3, 4, "ABCB") ? "true" : "false");
     return 0;
 }

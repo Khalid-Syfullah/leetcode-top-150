@@ -14,26 +14,58 @@ struct ListNode *newNode(int val) {
 }
 
 struct ListNode *removeNthFromEnd(struct ListNode *head, int n) {
-    struct ListNode dummy = {0, head};
-    struct ListNode *fast = &dummy, *slow = &dummy;
-    for (int i = 0; i <= n; ++i) fast = fast->next;
-    while (fast) {
+    struct ListNode dummy;
+    dummy.val = 0;
+    dummy.next = head;
+    struct ListNode *fast = &dummy;
+    struct ListNode *slow = &dummy;
+
+    for (int i = 0; i <= n; i++) fast = fast->next;
+
+    while (fast != NULL) {
         fast = fast->next;
         slow = slow->next;
     }
+
     struct ListNode *del = slow->next;
     slow->next = del->next;
     free(del);
     return dummy.next;
 }
 
+static struct ListNode *build(int *values, int n) {
+    struct ListNode dummy;
+    dummy.next = NULL;
+    struct ListNode *tail = &dummy;
+    for (int i = 0; i < n; i++) {
+        tail->next = newNode(values[i]);
+        tail = tail->next;
+    }
+    return dummy.next;
+}
+
+static void printList(struct ListNode *head) {
+    struct ListNode *curr = head;
+    while (curr != NULL) {
+        printf("%d", curr->val);
+        if (curr->next != NULL) printf(" -> ");
+        curr = curr->next;
+    }
+    printf("\n");
+}
+
 int main(void) {
-    struct ListNode *head = newNode(1);
-    head->next = newNode(2);
-    head->next->next = newNode(3);
-    head->next->next->next = newNode(4);
-    head->next->next->next->next = newNode(5);
-    for (struct ListNode *p = removeNthFromEnd(head, 2); p; p = p->next) printf("%d ", p->val);
-    puts("");
+    int v1[] = {1, 2, 3, 4, 5};
+    struct ListNode *a = build(v1, 5);
+    printList(removeNthFromEnd(a, 2));
+
+    int v2[] = {1};
+    struct ListNode *b = build(v2, 1);
+    printList(removeNthFromEnd(b, 1));
+
+    int v3[] = {1, 2};
+    struct ListNode *c = build(v3, 2);
+    printList(removeNthFromEnd(c, 1));
+
     return 0;
 }

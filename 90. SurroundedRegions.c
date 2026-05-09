@@ -1,7 +1,53 @@
 #include <stdio.h>
 
+#define ROWS 4
+#define COLS 4
+
+static void dfs(char board[ROWS][COLS], int r, int c) {
+    if (r < 0 || c < 0 || r >= ROWS || c >= COLS || board[r][c] != 'O') return;
+    board[r][c] = 'T';
+    dfs(board, r + 1, c);
+    dfs(board, r - 1, c);
+    dfs(board, r, c + 1);
+    dfs(board, r, c - 1);
+}
+
+void solve(char board[ROWS][COLS]) {
+    int rows = ROWS, cols = COLS;
+
+    for (int r = 0; r < rows; r++) {
+        if (board[r][0]        == 'O') dfs(board, r, 0);
+        if (board[r][cols - 1] == 'O') dfs(board, r, cols - 1);
+    }
+    for (int c = 0; c < cols; c++) {
+        if (board[0][c]        == 'O') dfs(board, 0, c);
+        if (board[rows - 1][c] == 'O') dfs(board, rows - 1, c);
+    }
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            if      (board[r][c] == 'O') board[r][c] = 'X';
+            else if (board[r][c] == 'T') board[r][c] = 'O';
+        }
+    }
+}
+
+static void printBoard(char board[ROWS][COLS]) {
+    for (int r = 0; r < ROWS; r++) {
+        printf("[%c, %c, %c, %c]\n",
+               board[r][0], board[r][1], board[r][2], board[r][3]);
+    }
+}
+
 int main(void) {
-    puts("Starter template generated for this Top 150 slot.");
-    puts("Fill in the exact C implementation here if you want a stricter LeetCode-ready signature.");
+    char board[ROWS][COLS] = {
+        {'X', 'X', 'X', 'X'},
+        {'X', 'O', 'O', 'X'},
+        {'X', 'X', 'O', 'X'},
+        {'X', 'O', 'X', 'X'}
+    };
+
+    solve(board);
+    printBoard(board);
     return 0;
 }
